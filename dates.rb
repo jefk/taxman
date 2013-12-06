@@ -25,7 +25,6 @@ class DateData
 
   def date
     if absolute_date?
-      p 'a'
       get_absolute
     elsif relative_date?
       get_relative
