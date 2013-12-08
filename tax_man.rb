@@ -1,29 +1,29 @@
-# open('price.data').each do |line|
-#   next unless line =~ /^a/
-#   idate = line.split(',').first[1..-1].to_i
-#   puts Time.at(idate).wday
-
-# end
-
-class DateData
-  attr_reader :stream, :line, :last_absolute_date
+class TaxMan
+  attr_reader :line, :last_absolute_date, :prices
 
   SECONDS_IN_WEEK = 60 * 60 * 24 * 7
 
-  def initialize(stream: nil)
-    @stream = stream
+  def initialize(price_data: nil, div_data: nil)
+    @prices = {}
+    build_prices(price_data)
+
   end
 
-  def dates
+  def build_table(stream)
     stream.each do |line|
       @line = line
-      # next unless date
+      date = get_date
+      next unless date
 
-      p date
+      prices[date] = price
     end
   end
 
-  def date
+  def price
+    line.split(',')[1].to_f
+  end
+
+  def get_date
     if absolute_date?
       get_absolute
     elsif relative_date?
@@ -49,5 +49,5 @@ class DateData
   end
 end
 
-stuff = DateData.new stream: File.open('price.data')
-stuff.dates
+require 'pp'
+irs = TaxMan.new price_data: open('price.data'), div_data: open('div.data')
