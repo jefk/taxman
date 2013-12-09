@@ -10,9 +10,9 @@ class TaxMan
     set_prices(prices_without_dividends, dividends)
   end
 
-  def estimate_average_cost(shares:nil, purchase_date:nil, purchase_price:nil)
+  def estimate_average_cost(purchase_date:nil, purchase_price:nil)
     first_entry = {
-      new_shares: shares,
+      new_shares: 1.0,
       date: purchase_date,
       price: purchase_price,
     }
@@ -86,4 +86,4 @@ end
 irs = TaxMan.new price_data: open('price.data'), div_data: open('div.data')
 
 purchase_date = Time.mktime(1983, 'Aug', 6)
-puts irs.estimate_average_cost shares:100.0, purchase_date:purchase_date, purchase_price:2.0084
+puts irs.estimate_average_cost purchase_date:purchase_date, purchase_price:2.0084
