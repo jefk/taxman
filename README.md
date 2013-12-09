@@ -1,3 +1,3 @@
 # taxman
 
-`ruby taxman.rb`
+`ruby tax_man.rb`
